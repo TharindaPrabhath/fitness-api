@@ -26,10 +26,48 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Tech Stack
+
+- Package manager: Yarn
+- Language: Typescript
+- Backend framework: NestJs
+- Databse: Postgres
+- Database ORM: Prisma
+
 ## Installation
 
 ```bash
 $ yarn install
+```
+
+## Setting up a Local DB
+
+Docker Postgres image can be used to spinup a local DB.
+
+```bash
+# creating a docker Postgres container
+$ docker run --name fitness-db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=qwerty -p 5432:5432 -v /data:/var/lib/postgresql/data -d postgres
+
+# creating a new database
+Log into the docker container
+$ docker exec -it <CONTAINER_ID> bash
+
+Log into the Postgres DB in the docker container
+$ psql -U postgres
+
+Then enter the password which was initially given when creating the docker instance.
+
+$ CREATE DATABASE fitness;
+```
+
+## Generating Prisma Schema
+
+```bash
+# Generating the schema
+$ yarn prisma generate
+
+# Uploading the Prisma schema into the DB
+$ yarn prisma db push
 ```
 
 ## Running the app
@@ -44,29 +82,6 @@ $ yarn run start:dev
 # production mode
 $ yarn run start:prod
 ```
-
-## Test
-
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
